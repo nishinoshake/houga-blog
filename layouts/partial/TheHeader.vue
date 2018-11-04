@@ -25,8 +25,6 @@ export default {
     padding: 8rem 0;
   }
   &-logo {
-    display: flex;
-    justify-content: flex-end;
     font-size: 2rem;
     letter-spacing: 0.12em;
     line-height: 1;
