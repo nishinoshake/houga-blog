@@ -51,6 +51,7 @@ module.exports = {
     ],
     ['@nuxtjs/google-analytics', { id: 'UA-53153991-19' }],
     '@nuxtjs/dotenv',
+    '@nuxtjs/pwa',
     '@nuxtjs/sitemap'
   ],
   generate: {
