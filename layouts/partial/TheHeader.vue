@@ -28,21 +28,8 @@ export default {
     font-size: 2rem;
     letter-spacing: 0.12em;
     line-height: 1;
-    @include min {
-      margin-left: -0.8rem;
-    }
     a {
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      &:before {
-        content: '';
-        width: 2rem;
-        height: 0.25rem;
-        margin-right: -0.4rem;
-        background-color: currentColor;
-        transform: rotate(-70deg);
-      }
+      display: inline-block;
       @include min {
         &:hover {
           opacity: 0.8;
