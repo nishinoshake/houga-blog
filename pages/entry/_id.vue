@@ -1,6 +1,7 @@
 <template>
   <div class="entry" v-if="post">
     <h2 class="entry-title">{{ post.fields.title }}</h2>
+    <p class="entry-date">{{ releaseDate }}</p>
     <div class="entry-body" v-if="renderedMd" v-html="renderedMd"></div>
     <TagList class="entry-tag" :tags="post.fields.tags" />
     <div class="entry-trailer" v-if="post.fields.trailerId">
@@ -24,6 +25,15 @@ export default {
     ...mapGetters(['post']),
     renderedMd() {
       return this.post ? md().render(this.post.fields.body) : null
+    },
+    releaseDate() {
+      if (!this.post) {
+        return null
+      }
+
+      const d = new Date(this.post.fields.releaseDate)
+
+      return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
     }
   },
   async fetch({ store, params }) {
@@ -40,15 +50,20 @@ export default {
 <style lang="scss" scoped>
 .entry {
   &-title {
-    margin-bottom: 4rem;
-    font-size: 2rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+    line-height: 1.4;
     letter-spacing: 0.12em;
     @include min {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
     }
   }
+  &-date {
+    color: $color-modest;
+    margin-bottom: 4rem;
+  }
   &-tag {
-    margin-top: 1rem;
+    margin-top: 0.3rem;
   }
   &-spec {
     table-layout: fixed;
@@ -71,7 +86,7 @@ export default {
   &-trailer {
     width: 100%;
     max-width: 480px;
-    margin-top: 4rem;
+    margin-top: 6rem;
     position: relative;
     background-color: $color-black;
     &:before {
@@ -86,8 +101,8 @@ export default {
   }
   &-body {
     /deep/ {
-      line-height: 1.8;
-      font-size: 1.4rem;
+      line-height: 2;
+      font-size: 1.6rem;
       p,
       ul,
       ol,

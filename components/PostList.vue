@@ -19,7 +19,7 @@ export default {
   &-list {
   }
   &-item {
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 0.12em;
     @include min {
       font-size: 2.2rem;
