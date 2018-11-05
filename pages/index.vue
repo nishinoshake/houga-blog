@@ -29,7 +29,7 @@ export default {
   },
   mounted() {
     if (!this.posts.length) {
-      this.fetchPosts({ page: 1 })
+      this.fetchPosts({ pageType: 'post', page: 1 })
     }
   },
   methods: {
