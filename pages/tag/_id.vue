@@ -1,23 +1,21 @@
 <template>
   <div class="tag">
     <h2 class="tag-title" v-if="tag">#{{ tag.fields.title }}</h2>
-    <PostList :posts="tagPosts" />
-    <DummyPostList v-if="isFetching" />
-    <ButtonMore v-if="haveMorePosts" :handle-click="fetchMore" />
+    <PostContainer
+      page-type="tag"
+      :posts="tagPosts"
+      :handle-click-more="fetchMore"
+    />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import PostList from '@/components/PostList'
-import DummyPostList from '@/components/DummyPostList'
-import ButtonMore from '@/components/ButtonMore'
+import PostContainer from '@/components/PostContainer'
 
 export default {
   components: {
-    PostList,
-    DummyPostList,
-    ButtonMore
+    PostContainer
   },
   head() {
     return {
@@ -27,31 +25,38 @@ export default {
   computed: {
     ...mapGetters(['tagPosts', 'tag']),
     ...mapState({
-      page: state => state.index.tag.page,
-      lastPage: state => state.index.tag.lastPage,
-      isFetching: state => state.index.tag.isFetching
-    }),
-    haveMorePosts() {
-      return !this.isFetching && this.page < this.lastPage
-    }
+      page: state => state.index.tag.page
+    })
   },
   async fetch({ store, params }) {
     store.commit('setTagId', { id: params.id })
     store.commit('clearPostIds', { pageType: 'tag' })
 
     if (!process.browser) {
-      await store.dispatch('fetchPostsByTagId', { id: params.id, page: 1 })
+      await store.dispatch('fetchPosts', {
+        pageType: 'tag',
+        page: 1,
+        tagId: params.id
+      })
     }
   },
   mounted() {
     if (!this.tagPosts.length) {
-      this.fetchPostsByTagId({ id: this.$route.params.id, page: 1 })
+      this.fetchPosts({
+        pageType: 'tag',
+        page: 1,
+        tagId: this.$route.params.id
+      })
     }
   },
   methods: {
-    ...mapActions(['fetchPostsByTagId']),
+    ...mapActions(['fetchPosts']),
     fetchMore() {
-      this.fetchPostsByTagId({ id: this.$route.params.id, page: this.page + 1 })
+      this.fetchPosts({
+        pageType: 'tag',
+        page: this.page + 1,
+        tagId: this.$route.params.id
+      })
     }
   }
 }

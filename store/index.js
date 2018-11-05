@@ -3,6 +3,14 @@ import * as api from '@/api'
 import { uniq } from '@/lib/helpers'
 import { POSTS_PER_PAGE } from '@/config/constant'
 
+const createIndexState = () => ({
+  total: null,
+  page: null,
+  lastPage: null,
+  ids: [],
+  isFetching: false
+})
+
 const createStore = () =>
   new Vuex.Store({
     state: {
@@ -11,20 +19,8 @@ const createStore = () =>
         tag: {}
       },
       index: {
-        post: {
-          total: null,
-          page: null,
-          lastPage: null,
-          ids: [],
-          isFetching: false
-        },
-        tag: {
-          total: null,
-          page: null,
-          lastPage: null,
-          ids: [],
-          isFetching: false
-        }
+        post: createIndexState(),
+        tag: createIndexState()
       },
       postId: null,
       tagIds: [],
@@ -59,47 +55,24 @@ const createStore = () =>
           commit('setNetwordError')
         }
       },
-      async fetchPosts({ state, commit }, { page }) {
-        if (state.index.post.isFetching) {
+      async fetchPosts({ state, commit }, { pageType, page, tagId = null }) {
+        if (state.index[pageType].isFetching) {
           return
         }
 
-        commit('setIsFetching', { pageType: 'post' })
+        commit('setIsFetching', { pageType })
 
         try {
-          const { total, items } = await api.fetchPosts(page)
+          const { total, items } = await api.fetchPosts({ page, tagId })
 
-          commit('clearIsFetching', { pageType: 'post' })
+          commit('clearIsFetching', { pageType })
           commit('mergePostEntities', { items })
-          commit('appendPostIds', { pageType: 'post', items })
-          commit('setPage', { pageType: 'post', page })
+          commit('appendPostIds', { pageType, items })
+          commit('setPage', { pageType, page })
 
           if (page === 1) {
-            commit('setTotal', { pageType: 'post', total })
-            commit('setLastPage', { pageType: 'post', total })
-          }
-        } catch (e) {
-          commit('setNetwordError')
-        }
-      },
-      async fetchPostsByTagId({ state, commit }, { id, page }) {
-        if (state.index.tag.isFetching) {
-          return
-        }
-
-        commit('setIsFetching', { pageType: 'tag' })
-
-        try {
-          const { total, items } = await api.fetchPostsByTagId(id, page)
-
-          commit('clearIsFetching', { pageType: 'tag' })
-          commit('mergePostEntities', { items })
-          commit('appendPostIds', { pageType: 'tag', items })
-          commit('setPage', { pageType: 'tag', page })
-
-          if (page === 1) {
-            commit('setTotal', { pageType: 'tag', total })
-            commit('setLastPage', { pageType: 'tag', total })
+            commit('setTotal', { pageType, total })
+            commit('setLastPage', { pageType, total })
           }
         } catch (e) {
           commit('setNetwordError')

@@ -6,29 +6,20 @@ const client = createClient({
   accessToken: process.env.ACCESS_TOKEN
 })
 
-export const fetchAllPosts = () =>
-  client.getEntries({
-    content_type: 'post',
-    order: '-fields.releaseDate',
-    limit: 1000
-  })
-
-export const fetchPosts = page =>
-  client.getEntries({
+export const fetchPosts = ({ page, tagId = null }) => {
+  let param = {
     content_type: 'post',
     order: '-fields.releaseDate',
     skip: (page - 1) * POSTS_PER_PAGE,
     limit: POSTS_PER_PAGE
-  })
+  }
 
-export const fetchPostsByTagId = (id, page) =>
-  client.getEntries({
-    content_type: 'post',
-    'fields.tags.sys.id': id,
-    order: '-fields.releaseDate',
-    skip: (page - 1) * POSTS_PER_PAGE,
-    limit: POSTS_PER_PAGE
-  })
+  if (tagId) {
+    param['fields.tags.sys.id'] = tagId
+  }
+
+  return client.getEntries(param)
+}
 
 export const fetchPost = id => client.getEntry(id)
 
