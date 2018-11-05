@@ -1,18 +1,10 @@
 version: 2
 
-defaults: &defaults
-  working_directory: ~/app
-  docker:
-    - image: circleci/python:3.6-jessie-node-browsers
-
-filter_only_master: &filter_only_master
-  filters:
-    branches:
-      only: master
-
 jobs:
-  install:
-    <<: *defaults
+  build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/python:3.6-jessie-node-browsers
     steps:
       - checkout
       - restore_cache:
@@ -25,27 +17,7 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - persist_to_workspace:
-          root: ~/app
-          paths:
-            - ./*
-
-  build:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/app
       - run: yarn generate
-      - persist_to_workspace:
-          root: ~/app
-          paths:
-            - ./*
-
-  deploy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/app
       - run: sudo pip install awscli
       - run: aws s3 sync ./dist/ s3://blog.houga.cc --exact-timestamps --delete --exclude "*.html" --cache-control max-age=31536000
       - run: aws s3 sync ./dist/ s3://blog.houga.cc --exact-timestamps --delete --exclude "*" --include "*.html" --cache-control no-store
@@ -55,11 +27,7 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - install
       - build:
-          requires:
-            - install
-      - deploy:
-          <<: *filter_only_master
-          requires:
-            - build
+          filters:
+            branches:
+              only: master
