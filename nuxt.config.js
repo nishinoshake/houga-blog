@@ -20,10 +20,14 @@ const routes = async function() {
   return [...post.items.map(item => `/entry/${item.sys.id}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
 }
 
+const TITLE = '邦画だってさ'
+const DESCRIPTION =
+  'おもしろかった邦画の感想を書いていく予定です。まだ何も書けていないですが、順次追加していきます。たまには邦画も悪くないですよ。'
+
 module.exports = {
   mode: 'universal',
   head: {
-    title: '邦画だってさ',
+    title: TITLE,
     htmlAttrs: {
       lang: 'ja'
     },
@@ -31,7 +35,41 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'theme-color', content: '#ffffff' },
-      { hid: 'description', name: 'description', content: '' }
+      {
+        hid: 'description',
+        name: 'description',
+        content: DESCRIPTION
+      },
+      {
+        name: 'theme-color',
+        content: '#ffffff'
+      },
+      {
+        property: 'og:site_name',
+        content: TITLE
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: TITLE
+      },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content: DESCRIPTION
+      },
+      {
+        property: 'og:image',
+        content: 'https://blog.houga.cc/og.png?2018110601'
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      },
+      {
+        name: 'twitter:image',
+        content: 'https://blog.houga.cc/og.png?2018110601'
+      }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },

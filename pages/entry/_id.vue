@@ -21,6 +21,11 @@ export default {
     PostList,
     TagList
   },
+  head() {
+    return {
+      title: `${this.post.fields.title} | 邦画だってさ`
+    }
+  },
   computed: {
     ...mapGetters(['post']),
     renderedMd() {

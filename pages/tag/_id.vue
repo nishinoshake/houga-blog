@@ -19,6 +19,11 @@ export default {
     DummyPostList,
     ButtonMore
   },
+  head() {
+    return {
+      title: `#${this.tag.fields.title} | 邦画だってさ`
+    }
+  },
   computed: {
     ...mapGetters(['tagPosts', 'tag']),
     ...mapState({
