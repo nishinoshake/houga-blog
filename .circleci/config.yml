@@ -18,6 +18,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: yarn generate
+      - run: yarn test
       - run: sudo pip install awscli
       - run: aws s3 sync ./dist/ s3://blog.houga.cc --exact-timestamps --delete --exclude "*.html" --cache-control max-age=31536000
       - run: aws s3 sync ./dist/ s3://blog.houga.cc --exact-timestamps --delete --exclude "*" --include "*.html" --cache-control no-store

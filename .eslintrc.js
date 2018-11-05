@@ -7,6 +7,11 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
+  globals: {
+    test: true,
+    browser: true,
+    expect: true
+  },
   extends: [
     'standard',
     'plugin:vue/essential',

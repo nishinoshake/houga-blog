@@ -8,7 +8,7 @@ const client = createClient({
 
 export const fetchPosts = ({ page, tagId = null }) => {
   let param = {
-    content_type: 'post',
+    content_type: 'posts',
     order: '-fields.releaseDate',
     skip: (page - 1) * POSTS_PER_PAGE,
     limit: POSTS_PER_PAGE
