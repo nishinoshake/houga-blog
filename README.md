@@ -1,22 +1,28 @@
-# houga-blog
+# 邦画だってさ
 
-> My first-rate Nuxt.js project
+[Contentful](https://www.contentful.com)と[Nuxt.js](https://ja.nuxtjs.org)で構築したブログです。  
+ブログを作って満足してしまったので、記事はまだ全部（仮）です。  
 
-## Build Setup
+https://blog.houga.cc
 
-``` bash
-# install dependencies
-$ yarn install
+## 使い方
+Contentfulのアクセストークンを環境変数に設定しないと動きませんが参考までに。
 
-# serve with hot reload at localhost:3000
-$ yarn run dev
+```
+# インストール
+yarn
 
-# build for production and launch server
-$ yarn run build
-$ yarn start
+# 開発
+yarn dev
 
-# generate static project
-$ yarn run generate
+# 静的ファイル生成
+yarn generate
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## インフラ構成
+Nuxt.jsで静的に生成したファイルをS3へホスティングして、手前にCloudFrontを置いています。  
+
+## ご意見・ご要望
+ブログに関するご意見・ご要望がありましたら、issueにあげていただくか、下記のメールまでご連絡をお願いいたします。
+
+lawson.and.7.11@gmail.com
