@@ -5,9 +5,6 @@
         <li class="footer-item">
           <a href="https://github.com/noplan1989/houga-blog" target="_blank" rel="noopener">GITHUB</a>
         </li>
-        <li class="footer-item">
-          <a href="mailto:lawson.and.7.11@gmail.com">MAIL</a>
-        </li>
       </ul>
     </LayoutInside>
   </footer>
@@ -32,8 +29,9 @@ export default {
     justify-content: flex-end;
     margin-top: 0.3rem;
     font-size: 1.1rem;
+    font-family: sans-serif;
+    font-weight: bold;
     color: $color-modest;
-    @include font-sans;
   }
   &-item {
     display: flex;

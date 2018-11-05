@@ -33,10 +33,7 @@ module.exports = {
       { name: 'theme-color', content: '#ffffff' },
       { hid: 'description', name: 'description', content: '' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Gothic+A1:700' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   env: {
     SPACE_ID: process.env.SPACE_ID,

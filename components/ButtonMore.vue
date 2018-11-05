@@ -25,6 +25,11 @@ export default {
     border: 2px solid currentColor;
     border-radius: 999em;
     @include font-serif;
+    @include min {
+      &:hover {
+        color: $color-modest;
+      }
+    }
   }
 }
 </style>
