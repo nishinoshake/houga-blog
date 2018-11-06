@@ -5,3 +5,4 @@ sw.*
 node_modules/
 dist/
 coverage/
+static/sitemap.xml
