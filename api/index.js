@@ -1,5 +1,5 @@
 import { createClient } from 'contentful'
-import { POSTS_PER_PAGE } from '@/config/constant'
+import { CONTENT_TYPE_POST, CONTENT_TYPE_TAG, POSTS_PER_PAGE } from '@/config/constant'
 
 const client = createClient({
   space: process.env.SPACE_ID,
@@ -8,7 +8,7 @@ const client = createClient({
 
 export const fetchPosts = ({ page, tagId = null }) => {
   let param = {
-    content_type: 'post',
+    content_type: CONTENT_TYPE_POST,
     order: '-fields.releaseDate',
     skip: (page - 1) * POSTS_PER_PAGE,
     limit: POSTS_PER_PAGE
@@ -25,5 +25,5 @@ export const fetchPost = id => client.getEntry(id)
 
 export const fetchTags = () =>
   client.getEntries({
-    content_type: 'tag'
+    content_type: CONTENT_TYPE_TAG
   })

@@ -11,6 +11,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import PostContainer from '@/components/PostContainer'
+import { CONTENT_TYPE_POST } from '@/config/constant'
 
 export default {
   components: {
@@ -24,18 +25,18 @@ export default {
   },
   async fetch({ store }) {
     if (!process.browser) {
-      await store.dispatch('fetchPosts', { pageType: 'post', page: 1 })
+      await store.dispatch('fetchPosts', { pageType: CONTENT_TYPE_POST, page: 1 })
     }
   },
   mounted() {
     if (!this.posts.length) {
-      this.fetchPosts({ pageType: 'post', page: 1 })
+      this.fetchPosts({ pageType: CONTENT_TYPE_POST, page: 1 })
     }
   },
   methods: {
     ...mapActions(['fetchPosts']),
     fetchMore() {
-      this.fetchPosts({ pageType: 'post', page: this.page + 1 })
+      this.fetchPosts({ pageType: CONTENT_TYPE_POST, page: this.page + 1 })
     }
   }
 }

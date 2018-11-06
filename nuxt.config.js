@@ -1,4 +1,5 @@
 import { createClient } from 'contentful'
+import { CONTENT_TYPE_POST, CONTENT_TYPE_TAG } from './config/constant'
 
 require('dotenv').config()
 
@@ -8,14 +9,10 @@ const routes = async function() {
     accessToken: process.env.ACCESS_TOKEN
   })
 
-  const post = await client.getEntries({
-    content_type: 'post',
-    limit: 1000
-  })
-
-  const tag = await client.getEntries({
-    content_type: 'tag'
-  })
+  const [post, tag] = await Promise.all([
+    client.getEntries({ content_type: CONTENT_TYPE_POST, limit: 1000 }),
+    client.getEntries({ content_type: CONTENT_TYPE_TAG })
+  ])
 
   return [...post.items.map(item => `/entry/${item.sys.id}`), ...tag.items.map(item => `/tag/${item.sys.id}`)]
 }
