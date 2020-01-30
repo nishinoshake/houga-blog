@@ -3,10 +3,13 @@ import { CONTENT_TYPE_POST, CONTENT_TYPE_TAG } from './config/constant'
 
 require('dotenv').config()
 
+const CONTENTFUL_SPACE_ID = process.env.SPACE_ID || 'pf2aflscqgg2'
+const CONTENTFUL_ACCESS_TOKEN = process.env.ACCESS_TOKEN || '672f6ef9cd1792652afa415fb353482f43f7267fd191ff488869528a70ed0ed1'
+
 const routes = async function() {
   const client = createClient({
-    space: process.env.SPACE_ID || 'pf2aflscqgg2',
-    accessToken: process.env.ACCESS_TOKEN || '672f6ef9cd1792652afa415fb353482f43f7267fd191ff488869528a70ed0ed1'
+    space: CONTENTFUL_SPACE_ID,
+    accessToken: CONTENTFUL_ACCESS_TOKEN
   })
 
   const [post, tag] = await Promise.all([
@@ -75,21 +78,24 @@ module.exports = {
     ]
   },
   env: {
-    SPACE_ID: process.env.SPACE_ID,
-    ACCESS_TOKEN: process.env.ACCESS_TOKEN
+    SPACE_ID: CONTENTFUL_SPACE_ID,
+    ACCESS_TOKEN: CONTENTFUL_ACCESS_TOKEN
   },
   loading: false,
   css: ['@/assets/scss/index.scss'],
   modules: [
-    [
-      'nuxt-sass-resources-loader',
-      ['@/assets/scss/foundation/_variables.scss', '@/assets/scss/foundation/_mixin.scss']
-    ],
     ['@nuxtjs/google-analytics', { id: 'UA-53153991-19' }],
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/style-resources'
   ],
+  styleResources: {
+    scss: [
+      './assets/scss/foundation/_variables.scss',
+      './assets/scss/foundation/_mixin.scss'
+    ]
+  },
   generate: {
     routes
   },

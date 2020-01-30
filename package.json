@@ -26,6 +26,7 @@
     "@nuxtjs/google-analytics": "^2.2.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@nuxtjs/sitemap": "^2.0.1",
+    "@nuxtjs/style-resources": "^1.0.0",
     "contentful": "^7.13.1",
     "cross-env": "^7.0.0",
     "markdown-it": "^10.0.0",
@@ -51,7 +52,6 @@
     "lint-staged": "^10.0.6",
     "node-sass": "^4.13.1",
     "nodemon": "^2.0.2",
-    "nuxt-sass-resources-loader": "^2.0.5",
     "prettier": "^1.19.1",
     "puppeteer": "^2.1.0",
     "sass-loader": "^8.0.2"

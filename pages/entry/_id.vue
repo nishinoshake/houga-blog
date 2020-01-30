@@ -29,7 +29,8 @@ export default {
   computed: {
     ...mapGetters(['post']),
     renderedMd() {
-      return this.post ? md().render(this.post.fields.body) : null
+      console.log(this.post.fields.body)
+      return this.post && this.post.fields.body ? md().render(this.post.fields.body) : null
     },
     releaseDate() {
       if (!this.post) {
