@@ -5,8 +5,8 @@ require('dotenv').config()
 
 const routes = async function() {
   const client = createClient({
-    space: process.env.SPACE_ID,
-    accessToken: process.env.ACCESS_TOKEN
+    space: process.env.SPACE_ID || 'pf2aflscqgg2',
+    accessToken: process.env.ACCESS_TOKEN || '672f6ef9cd1792652afa415fb353482f43f7267fd191ff488869528a70ed0ed1'
   })
 
   const [post, tag] = await Promise.all([
